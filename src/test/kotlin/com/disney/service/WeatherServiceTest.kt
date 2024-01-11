@@ -29,7 +29,7 @@ class WeatherServiceTest {
 
         // arrange
         val period = Period(
-            name = "Today",
+            number = 1,
             temperature = 55.0,
             temperatureUnit = "F",
             shortForecast = "Sunny",
@@ -66,7 +66,7 @@ class WeatherServiceTest {
 
         // arrange
         val period = Period(
-            name = "Today",
+            number = 1,
             temperature = 270.0,
             temperatureUnit = "K",
             shortForecast = "Snowing",
@@ -103,7 +103,7 @@ class WeatherServiceTest {
 
         // arrange
         val period = Period(
-            name = "Today",
+            number = 1,
             temperature = 15.236452,
             temperatureUnit = "C",
             shortForecast = "Cloudy",
@@ -139,7 +139,7 @@ class WeatherServiceTest {
     fun `test getWeatherForecastEmpty`() {
         // arrange
         val period = Period(
-            name = "Tonight",
+            number = 2,
             temperature = 15.236452,
             temperatureUnit = "C",
             shortForecast = "Cloudy",

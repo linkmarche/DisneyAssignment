@@ -13,8 +13,8 @@ class WeatherRequest(
         val periods: List<Period>)
 
     data class Period(
-        @JsonProperty("name")
-        val name: String,
+        @JsonProperty("number")
+        val number: Int,
         @JsonProperty("temperature")
         val temperature: Double,
         @JsonProperty("temperatureUnit")

@@ -28,8 +28,8 @@ class WeatherService(private val webClient: WebClient) {
             .retrieve()
             .bodyToMono(WeatherRequest::class.java)
             .map { request ->
-                //I am assuming here that the "current day" is the period with the name "Today" and "Tonight can be safely ignored
-                val periods = request.properties.periods.filter { period -> period.name == "Today" }
+                //I am assuming here that the "current day" reading is the first entry on the list of periods
+                val periods = request.properties.periods.filter { period -> period.number == 1 }
                     .map { period ->
                     DailyWeather(
                         dayName = getDayName(period.startTime),
