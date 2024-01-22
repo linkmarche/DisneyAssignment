@@ -1,11 +1,11 @@
 import com.disney.constant.Constant
-import com.disney.dao.WeatherDAO
+import com.disney.dao.ThirdPartyDAO
 import com.disney.model.DailyWeather
-import com.disney.service.WeatherService
 import com.disney.model.WeatherRequest
 import com.disney.model.WeatherRequest.Period
 import com.disney.model.WeatherRequest.Properties
 import com.disney.model.WeatherResponse
+import com.disney.service.ThirdPartyService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -16,13 +16,13 @@ import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 
 @ExtendWith(MockitoExtension::class)
-class WeatherServiceTest {
+class ThirdPartyServiceTest {
 
     @Mock
-    private lateinit var weatherDAO: WeatherDAO
+    private lateinit var thirdPartyDAO: ThirdPartyDAO
 
     @InjectMocks
-    private lateinit var weatherService: WeatherService
+    private lateinit var thirdPartyService: ThirdPartyService
 
     @Test
     fun `test getWeatherForecastFahrenheitSuccess`() {
@@ -44,10 +44,10 @@ class WeatherServiceTest {
         val request = WeatherRequest(Properties(periods = mutableListOf(period)))
         val response = WeatherResponse(daily = mutableListOf(daily))
 
-        `when`(weatherDAO.getWeatherData()).thenReturn(Mono.just(request))
+        `when`(thirdPartyDAO.getWeatherData()).thenReturn(Mono.just(request))
 
         // act
-        val result = weatherService.getWeatherForecast()
+        val result = thirdPartyService.getWeatherForecast()
 
         // assert
         StepVerifier.create(result)
@@ -78,10 +78,10 @@ class WeatherServiceTest {
         val request = WeatherRequest(Properties(periods = mutableListOf(period)))
         val response = WeatherResponse(daily = mutableListOf(daily))
 
-        `when`(weatherDAO.getWeatherData()).thenReturn(Mono.just(request))
+        `when`(thirdPartyDAO.getWeatherData()).thenReturn(Mono.just(request))
 
         // act
-        val result = weatherService.getWeatherForecast()
+        val result = thirdPartyService.getWeatherForecast()
 
         // assert
         StepVerifier.create(result)
@@ -112,10 +112,10 @@ class WeatherServiceTest {
         val request = WeatherRequest(Properties(periods = mutableListOf(period)))
         val response = WeatherResponse(daily = mutableListOf(daily))
 
-        `when`(weatherDAO.getWeatherData()).thenReturn(Mono.just(request))
+        `when`(thirdPartyDAO.getWeatherData()).thenReturn(Mono.just(request))
 
         // act
-        val result = weatherService.getWeatherForecast()
+        val result = thirdPartyService.getWeatherForecast()
 
         // assert
         StepVerifier.create(result)
@@ -138,10 +138,10 @@ class WeatherServiceTest {
 
         val request = WeatherRequest(Properties(periods = mutableListOf(period)))
 
-        `when`(weatherDAO.getWeatherData()).thenReturn(Mono.just(request))
+        `when`(thirdPartyDAO.getWeatherData()).thenReturn(Mono.just(request))
 
         // act
-        val result = weatherService.getWeatherForecast()
+        val result = thirdPartyService.getWeatherForecast()
 
         // assert
         StepVerifier.create(result)
@@ -155,9 +155,9 @@ class WeatherServiceTest {
     fun `test getWeatherForecastError`() {
         // arrange
         val error: Mono<WeatherRequest> = Mono.error(RuntimeException(Constant.WEATHER_EXCEPTION))
-        `when`(weatherDAO.getWeatherData()).thenReturn(error)
+        `when`(thirdPartyDAO.getWeatherData()).thenReturn(error)
 
         // act & assert
-        StepVerifier.create(weatherService.getWeatherForecast()).expectError(RuntimeException::class.java).verify()
+        StepVerifier.create(thirdPartyService.getWeatherForecast()).expectError(RuntimeException::class.java).verify()
     }
 }

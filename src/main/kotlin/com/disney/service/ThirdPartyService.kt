@@ -1,7 +1,7 @@
 package com.disney.service
 
 import com.disney.constant.Constant
-import com.disney.dao.WeatherDAO
+import com.disney.dao.ThirdPartyDAO
 import com.disney.model.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -15,15 +15,15 @@ import java.time.format.TextStyle
 import java.util.*
 
 @Service
-class WeatherService(private val weatherDAO: WeatherDAO) {
+class ThirdPartyService(private val thirdPartyDAO: ThirdPartyDAO) {
 
-    private val logger: Logger = LoggerFactory.getLogger(WeatherService::class.java)
+    private val logger: Logger = LoggerFactory.getLogger(ThirdPartyService::class.java)
 
     fun getWeatherForecast(): Mono<WeatherResponse> {
         logger.info("Fetching weather forecast...")
 
         //fetch the data from the provided URL and fill the request then map the request to the response
-        return weatherDAO.getWeatherData()
+        return thirdPartyDAO.getWeatherData()
             .map { request ->
                 //I am assuming here that the "current day" reading is the first entry on the list of periods
                 val periods = request.properties.periods.filter { period -> period.number == 1 }
